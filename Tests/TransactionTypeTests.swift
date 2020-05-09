@@ -65,10 +65,8 @@ class TransactionTypeTests: XCTestCase {
                                           clientToken: "",
                                           expiresOn: 10,
                                           graphQlUrl: "",
-                                          restUrl: "localhost/",
-                                          environment: "",
-                                          insightsUrl: "",
                                           issuer: "",
+                                          restUrl: "localhost/",
                                           userToken: "",
                                           authorization: "")
 
@@ -93,10 +91,8 @@ class TransactionTypeTests: XCTestCase {
                                           clientToken: "",
                                           expiresOn: 0,
                                           graphQlUrl: "",
-                                          restUrl: "http://localhost/",
-                                          environment: "",
-                                          insightsUrl: "",
                                           issuer: "",
+                                          restUrl: "http://localhost/",
                                           userToken: "",
                                           authorization: "")
 
@@ -141,10 +137,8 @@ class TransactionTypeTests: XCTestCase {
                                           clientToken: "",
                                           expiresOn: 0,
                                           graphQlUrl: "http://localhost/",
-                                          restUrl: "http://localhost/",
-                                          environment: "",
-                                          insightsUrl: "",
                                           issuer: "",
+                                          restUrl: "http://localhost/",
                                           userToken: "",
                                           authorization: "")
 

@@ -32,8 +32,3 @@ Changelog
 [1.0.0-beta05](https://github.com/hyperwallet/hyperwallet-ios-sdk/releases/tag/1.0.0-beta05)
 -------------------
 - Enhancements
-
-[1.0.0-beta06](https://github.com/hyperwallet/hyperwallet-ios-sdk/releases/tag/1.0.0-beta06)
--------------------
-- Added support to List User Balances
-- Enhancements

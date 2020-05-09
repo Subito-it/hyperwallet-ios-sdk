@@ -23,7 +23,7 @@ import os.log
 final class HTTPTransaction {
     private let provider: HyperwalletAuthenticationTokenProvider
     private let httpClient: HTTPClientProtocol
-    var configuration: Configuration?
+    private(set) var configuration: Configuration?
 
     init(provider: HyperwalletAuthenticationTokenProvider,
          httpClient: HTTPClientProtocol = HTTPClient(configuration: HTTPTransaction.urlSessionConfiguration)) {
@@ -135,6 +135,8 @@ final class HTTPTransaction {
                 } catch {
                     completionHandler(nil, ErrorTypeHelper.invalidRequest(for: error))
                 }
+            } else {
+                completionHandler(nil, ErrorTypeHelper.unexpectedError())
             }
     }
 

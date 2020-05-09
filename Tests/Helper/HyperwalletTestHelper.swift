@@ -8,8 +8,6 @@ class HyperwalletTestHelper {
     static let authenticationProvider = AuthenticationProviderMock(authorizationData: authenticationToken)
     static let contentType = "Content-Type"
     static let graphQlURL = "https://localhost/graphql"
-    static let insightsUrl = "https://localhost/insight"
-    static let environment = "DEV"
     static let restURL = "https://localhost/rest/v3/"
     static let userPath = "users/YourUserToken"
     static let userRestURL = "\(restURL)\(userPath)"
