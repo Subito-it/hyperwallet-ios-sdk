@@ -151,7 +151,6 @@ class HyperwalletPayPalAccountTests: XCTestCase {
         let payPalAccount = HyperwalletPayPalAccount
             .Builder(token: "trm-12345")
             .email("test@paypal.com")
-            .profileType("INDIVIDUAL")
             .build()
 
         Hyperwallet.shared.updatePayPalAccount(account: payPalAccount, completion: { (result, error) in

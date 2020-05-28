@@ -17,63 +17,62 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 import Foundation
-/// Representation of the user's PayPal account
+/// Representation of the user's Venmo account
 @objcMembers
-public final class HyperwalletPayPalAccount: HyperwalletTransferMethod {
+public final class HyperwalletVenmoAccount: HyperwalletTransferMethod {
     override private init(data: [String: AnyCodable]) {
         super.init(data: data)
     }
-    /// The required initializer
     public required init(from decoder: Decoder) throws {
         try super.init(from: decoder)
     }
 
-    /// The email address.
-    public var email: String? {
-        return getField(TransferMethodField.email.rawValue)
+    /// The mobile number associated with the Venmo account.
+    public var accountId: String? {
+        return getField(TransferMethodField.accountId.rawValue)
     }
 
-    /// A helper class to build the `HyperwalletPayPalAccount` instance.
+    /// A helper class to build the `HyperwalletVenmoAccount` instance.
     public final class Builder {
         private var storage = [String: AnyCodable]()
 
-        /// Creates a new instance of the `HyperwalletPayPalAccount` based on the required parameter to update
-        /// PayPal account.
+        /// Creates a new instance of the `HyperwalletVenmoAccount` based on the required parameter to update
+        /// Venmo account.
         ///
-        /// - Parameter token: The unique, auto-generated PayPal account identifier.
+        /// - Parameter token: The unique, auto-generated Venmo account identifier.
         /// Max 64 characters, prefixed with "trm-".
         public init(token: String) {
             storage[TransferMethodField.token.rawValue] = AnyCodable(value: token)
         }
 
-        /// Creates a new instance of the `HyperwalletPayPalAccount` based on the required parameters to create
+        /// Creates a new instance of the `HyperwalletVenmoAccount` based on the required parameters to create
         /// PayPal account.
         ///
         /// - Parameters:
-        ///   - transferMethodCountry: The PayPal account country.
-        ///   - transferMethodCurrency: The PayPal account currency.
-        ///   - transferMethodProfileType: The PayPal account holder's profile type, e.g. INDIVIDUAL or BUSINESS
+        ///   - transferMethodCountry: The Venmo account country.
+        ///   - transferMethodCurrency: The Venmo account currency.
+        ///   - transferMethodProfileType: The Venmo account holder's profile type, e.g. INDIVIDUAL or BUSINESS
         public init(transferMethodCountry: String, transferMethodCurrency: String, transferMethodProfileType: String) {
-            storage[TransferMethodField.type.rawValue] = AnyCodable(value: TransferMethodType.payPalAccount.rawValue)
+            storage[TransferMethodField.type.rawValue] = AnyCodable(value: TransferMethodType.venmoAccount.rawValue)
             storage[TransferMethodField.transferMethodCountry.rawValue] = AnyCodable(value: transferMethodCountry)
             storage[TransferMethodField.transferMethodCurrency.rawValue] = AnyCodable(value: transferMethodCurrency)
             storage[TransferMethodField.profileType.rawValue] = AnyCodable(value: transferMethodProfileType)
         }
 
-        /// Sets the email address
+        /// Sets the accountId
         ///
-        /// - Parameter email: The email address user want to create a PayPal account
-        /// - Returns: a self `HyperwalletPayPalAccount.Builder` instance.
-        public func email(_ email: String) -> Builder {
-            storage[TransferMethodField.email.rawValue] = AnyCodable(value: email)
+        /// - Parameter accountId: The mobile number associated with the Venmo account
+        /// - Returns: a self `HyperwalletVenmoAccount.Builder` instance.
+        public func accountId(_ accountId: String) -> Builder {
+            storage[TransferMethodField.accountId.rawValue] = AnyCodable(value: accountId)
             return self
         }
 
-        /// Builds a new instance of the `HyperwalletPayPalAccount`.
+        /// Builds a new instance of the `HyperwalletVenmoAccount`.
         ///
-        /// - Returns: a new instance of the `HyperwalletPayPalAccount`.
-        public func build() -> HyperwalletPayPalAccount {
-            return HyperwalletPayPalAccount(data: self.storage)
+        /// - Returns: a new instance of the `HyperwalletVenmoAccount`.
+        public func build() -> HyperwalletVenmoAccount {
+            return HyperwalletVenmoAccount(data: self.storage)
         }
     }
 }

@@ -56,7 +56,7 @@ public class HyperwalletBankCard: HyperwalletTransferMethod {
         /// Creates a new instance of the `HyperwalletBankCard.Builder` based on the required parameter to update
         /// Bank card.
         ///
-        /// - Parameter token: The bank card token.
+        /// - Parameter token: The unique, auto-generated bank card identifier. Max 64 characters, prefixed with "trm-".
         public init(token: String) {
             storage[TransferMethodField.token.rawValue] = AnyCodable(value: token)
         }
@@ -65,9 +65,9 @@ public class HyperwalletBankCard: HyperwalletTransferMethod {
         /// Bank card.
         ///
         /// - Parameters:
-        ///   - transferMethodCountry: The bank card country.
-        ///   - transferMethodCurrency: The bank card currency.
-        ///   - transferMethodProfileType: The method profile type
+        ///   - transferMethodCountry: The Bank Card country.
+        ///   - transferMethodCurrency: The Bank Card currency.
+        ///   - transferMethodProfileType: The Bank Card account holder's profile type
         public init(transferMethodCountry: String, transferMethodCurrency: String, transferMethodProfileType: String) {
             storage[TransferMethodField.type.rawValue] = AnyCodable(value: TransferMethodType.bankCard.rawValue)
             storage[TransferMethodField.transferMethodCountry.rawValue] = AnyCodable(value: transferMethodCountry)

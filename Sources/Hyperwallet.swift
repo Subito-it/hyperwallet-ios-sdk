@@ -163,6 +163,27 @@ public final class Hyperwallet: NSObject {
                                     completionHandler: completion)
     }
 
+    /// Creates a `HyperwalletVenmoAccount` for the User associated with the authentication token returned from
+    /// `HyperwalletAuthenticationTokenProvider.retrieveAuthenticationToken(_ : @escaping CompletionHandler)`.
+    ///
+    /// The `completion: @escaping (HyperwalletVenmoAccount?, HyperwalletErrorType?) -> Void` that is passed in to this
+    /// method invocation will receive the successful response(HyperwalletVenmoAccount) or error(HyperwalletErrorType)
+    /// from processing the request.
+    ///
+    /// This function will request a new authentication token via `HyperwalletAuthenticationTokenProvider`
+    /// if the current one is expired or is about to expire.
+    ///
+    /// - Parameters:
+    ///   - account: the `HyperwalletVenmoAccount` to be created
+    ///   - completion: the callback handler of responses from the Hyperwallet platform
+    public func createVenmoAccount(account: HyperwalletVenmoAccount,
+                                   completion: @escaping (HyperwalletVenmoAccount?, HyperwalletErrorType?) -> Void) {
+        httpTransaction.performRest(httpMethod: .post,
+                                    urlPath: "users/%@/venmo-accounts",
+                                    payload: account,
+                                    completionHandler: completion)
+    }
+
     /// Creates a `HyperwalletTransfer` for the User associated with the authentication token returned from
     /// `HyperwalletAuthenticationTokenProvider.retrieveAuthenticationToken(_ : @escaping CompletionHandler)`.
     ///
@@ -268,6 +289,34 @@ public final class Hyperwallet: NSObject {
                                     completionHandler: completion)
     }
 
+    /// Deactivates the `HyperwalletVenmoAccount` linked to the transfer method token specified. The
+    /// `HyperwalletVenmoAccount` being deactivated must belong to the User that is associated with the
+    /// authentication token returned from
+    /// `HyperwalletAuthenticationTokenProvider.retrieveAuthenticationToken(_ : @escaping CompletionHandler)`.
+    ///
+    /// The `completion: @escaping (HyperwalletStatusTransition?, HyperwalletErrorType?) -> Void` that is passed in to
+    /// this method invocation will receive the successful response(HyperwalletStatusTransition) or
+    /// error(HyperwalletErrorType) from processing the request.
+    ///
+    /// This function will request a new authentication token via `HyperwalletAuthenticationTokenProvider`
+    /// if the current one is expired or is about to expire.
+    ///
+    /// - Parameters:
+    ///   - transferMethodToken: the Hyperwallet specific unique identifier for the `HyperwalletVenmoAccount`
+    ///                          being deactivated
+    ///   - notes: a note regarding the status change
+    ///   - completion: the callback handler of responses from the Hyperwallet platform
+    public func deactivateVenmoAccount(transferMethodToken: String,
+                                       notes: String? = nil,
+                                       completion: @escaping (HyperwalletStatusTransition?,
+        HyperwalletErrorType?) -> Void) {
+        let statusTransition = HyperwalletStatusTransition.Builder(notes: notes, transition: .deactivated).build()
+        httpTransaction.performRest(httpMethod: .post,
+                                    urlPath: "users/%@/venmo-accounts/\(transferMethodToken)/status-transitions",
+                                    payload: statusTransition,
+                                    completionHandler: completion)
+    }
+
     /// Schedules the `HyperwalletTransfer` linked to the transfer method token specified.
     ///
     /// The `completion: @escaping (HyperwalletStatusTransition?, HyperwalletErrorType?) -> Void` that is passed in to
@@ -345,6 +394,24 @@ public final class Hyperwallet: NSObject {
                                  completion: @escaping (HyperwalletPayPalAccount?, HyperwalletErrorType?) -> Void) {
         httpTransaction.performRest(httpMethod: .get,
                                     urlPath: "users/%@/paypal-accounts/\(transferMethodToken)",
+                                    payload: "",
+                                    completionHandler: completion)
+    }
+
+    /// Returns the `HyperwalletVenmoAccount` linked to the transfer method token specified, or nil if none exists.
+    ///
+    /// The `completion: @escaping (HyperwalletVenmoAccount?, HyperwalletErrorType?) -> Void` that is passed in to this
+    /// method invocation will receive the successful response(HyperwalletVenmoAccount) or error(HyperwalletErrorType)
+    /// from processing the request.
+    ///
+    /// - Parameters:
+    ///   - transferMethodToken: the Hyperwallet specific unique identifier for the `HyperwalletVenmoAccount`
+    ///                          being requested
+    ///   - completion: the callback handler of responses from the Hyperwallet platform
+    public func getVenmoAccount(transferMethodToken: String,
+                                completion: @escaping (HyperwalletVenmoAccount?, HyperwalletErrorType?) -> Void) {
+        httpTransaction.performRest(httpMethod: .get,
+                                    urlPath: "users/%@/venmo-accounts/\(transferMethodToken)",
                                     payload: "",
                                     completionHandler: completion)
     }
@@ -547,6 +614,42 @@ public final class Hyperwallet: NSObject {
         HyperwalletErrorType?) -> Void) {
         httpTransaction.performRest(httpMethod: .get,
                                     urlPath: "users/%@/prepaid-cards",
+                                    payload: "",
+                                    queryParam: queryParam,
+                                    completionHandler: completion)
+    }
+
+    /// Returns the `HyperwalletVenmoAccount` for the User associated with the authentication token returned from
+    /// `HyperwalletAuthenticationTokenProvider.retrieveAuthenticationToken(_ : @escaping CompletionHandler)`,
+    /// or nil if non exist.
+    ///
+    /// The ordering and filtering of `HyperwalletVenmoAccount` will be based on the criteria specified within the
+    /// `HyperwalletVenmoAccountQueryParam` object, if it is not nil. Otherwise the default ordering and
+    /// filtering will be applied.
+    ///
+    /// * Offset: 0
+    /// * Limit: 10
+    /// * Created Before: N/A
+    /// * Created After: N/A
+    /// * Status: All
+    /// * Sort By: Created On
+    ///
+    /// The `completion: @escaping (HyperwalletPageList<HyperwalletVenmoAccount>?, HyperwalletErrorType?) -> Void`
+    /// that is passed in to this method invocation will receive the successful
+    /// response(HyperwalletPageList<HyperwalletVenmoAccount>?) or error(HyperwalletErrorType) from processing the
+    /// request.
+    ///
+    /// This function will request a new authentication token via `HyperwalletAuthenticationTokenProvider`
+    /// if the current one is expired or is about to expire.
+    ///
+    /// - Parameters:
+    ///   - queryParam: the ordering and filtering criteria
+    ///   - completion: the callback handler of responses from the Hyperwallet platform
+    public func listVenmoAccounts(queryParam: HyperwalletVenmoAccountQueryParam? = nil,
+                                  completion: @escaping (HyperwalletPageList<HyperwalletVenmoAccount>?,
+        HyperwalletErrorType?) -> Void) {
+        httpTransaction.performRest(httpMethod: .get,
+                                    urlPath: "users/%@/venmo-accounts",
                                     payload: "",
                                     queryParam: queryParam,
                                     completionHandler: completion)
@@ -768,6 +871,31 @@ public final class Hyperwallet: NSObject {
         let token = account.token ?? ""
         httpTransaction.performRest(httpMethod: .put,
                                     urlPath: "users/%@/paypal-accounts/\(token)",
+                                    payload: account,
+                                    completionHandler: completion)
+    }
+
+    /// Updates the `HyperwalletVenmoAccount` for the User associated with the authentication token returned from
+    /// `HyperwalletAuthenticationTokenProvider.retrieveAuthenticationToken(_ : @escaping CompletionHandler)`.
+    ///
+    /// To identify the `HyperwalletVenmoAccount` that is going to be updated, the transfer method token must be
+    /// set as part of the `HyperwalletVenmoAccount` object passed in.
+    ///
+    /// The `completion: @escaping (HyperwalletVenmoAccount?, HyperwalletErrorType?) -> Void` that is passed in to this
+    /// method invocation will receive the successful response(HyperwalletVenmoAccount) or error(HyperwalletErrorType)
+    /// from processing the request.
+    ///
+    /// This function will request a new authentication token via `HyperwalletAuthenticationTokenProvider`
+    /// if the current one is expired or is about to expire.
+    ///
+    /// - Parameters:
+    ///   - account: the `HyperwalletVenmoAccount` to be updated
+    ///   - completion: the callback handler of responses from the Hyperwallet platform
+    public func updateVenmoAccount(account: HyperwalletVenmoAccount,
+                                   completion: @escaping (HyperwalletVenmoAccount?, HyperwalletErrorType?) -> Void) {
+        let token = account.token ?? ""
+        httpTransaction.performRest(httpMethod: .put,
+                                    urlPath: "users/%@/venmo-accounts/\(token)",
                                     payload: account,
                                     completionHandler: completion)
     }

@@ -156,6 +156,11 @@ public class HyperwalletTransferMethod: NSObject, Codable {
         case cardPackage
         /// The user token
         case userToken
+
+        // Venmo account related fields
+        ///
+        /// The mobile number associated with the Venmo account.
+        case accountId
     }
 
     internal init(data: [String: AnyCodable]) {
@@ -174,6 +179,8 @@ public class HyperwalletTransferMethod: NSObject, Codable {
         case wireAccount = "WIRE_ACCOUNT"
         /// When the transfer method is Prepaid Card
         case prepaidCard = "PREPAID_CARD"
+        /// When the transfer method is Venmo Account
+        case venmoAccount = "VENMO_ACCOUNT"
     }
 
     /// Creates a new instance of the `HyperwalletTransferMethod`

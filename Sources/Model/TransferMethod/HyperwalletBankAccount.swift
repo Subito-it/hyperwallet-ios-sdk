@@ -306,7 +306,8 @@ public final class HyperwalletBankAccount: HyperwalletTransferMethod {
         /// Creates a new instance of the `HyperwalletBankAccount.Builder` based on the required parameter to update
         /// Bank account.
         ///
-        /// - Parameter token: The unique, auto-generated user identifier. Max 64 characters, prefixed with "usr-".
+        /// - Parameter token: The unique, auto-generated bank account identifier.
+        /// Max 64 characters, prefixed with "trm-".
         public init(token: String) {
             storage[TransferMethodField.token.rawValue] = AnyCodable(value: token)
         }
