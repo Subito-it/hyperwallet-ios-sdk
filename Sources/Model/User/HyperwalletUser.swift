@@ -100,7 +100,7 @@ public class HyperwalletUser: NSObject, Codable {
         case phoneNumber
         /// The user's postal code.
         case postalCode
-        /// The user's postal code.
+        /// The user's profile Type - INDIVIDUA or BUSINESS.
         case profileType
         /// The unique identifier for the program to which the user will belong.
         case programToken
