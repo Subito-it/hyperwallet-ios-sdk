@@ -804,6 +804,17 @@ public final class Hyperwallet: NSObject {
                                     completionHandler: completion)
     }
 
+    public func listPrepaidCardBalances(prepaidCardToken: String,
+                                        queryParam: HyperwalletBalanceQueryParam? = nil,
+                                        completion: @escaping (HyperwalletPageList<HyperwalletBalance>?,
+        HyperwalletErrorType?) -> Void) {
+        httpTransaction.performRest(httpMethod: .get,
+                                    urlPath: "users/%@/prepaid-cards/\(prepaidCardToken)/balances",
+                                    payload: "",
+                                    queryParam: queryParam,
+                                    completionHandler: completion)
+    }
+
     private func transferMethodConfigurationFieldResponseHandler(_ completionHandler: @escaping (
         (TransferMethodConfigurationFieldResult?, HyperwalletErrorType?) -> Void))
         -> (TransferMethodConfigurationField?, HyperwalletErrorType?) -> Void {
