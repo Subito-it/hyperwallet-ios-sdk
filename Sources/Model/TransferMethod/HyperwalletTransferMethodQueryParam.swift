@@ -24,7 +24,10 @@ public class HyperwalletTransferMethodQueryParam: QueryParam {
     public var status: QueryStatus?
 
     enum QueryParam: String {
+        case createdAfter
+        case createdBefore
         case status
+        case sortBy
     }
 
     /// Representation of the transfer method status
