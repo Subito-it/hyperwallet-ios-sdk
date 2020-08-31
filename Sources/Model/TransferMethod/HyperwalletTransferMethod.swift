@@ -201,7 +201,7 @@ public class HyperwalletTransferMethod: NSObject, Codable {
     /// - Parameter fieldName: The `TransferMethodField` type raw value
     /// - Returns: Returns the field value, or nil if none exists.
     public func getField(_ fieldName: String) -> String? {
-        return self.storage[fieldName]?.value as? String
+        self.storage[fieldName]?.value as? String
     }
 
     /// Sets the field value based on the key
@@ -214,7 +214,7 @@ public class HyperwalletTransferMethod: NSObject, Codable {
     }
 
     internal func getFields() -> [String: AnyCodable] {
-        return self.storage
+        self.storage
     }
 
     private struct CodingKeys: CodingKey {
@@ -231,42 +231,42 @@ public class HyperwalletTransferMethod: NSObject, Codable {
         }
 
         static func make(key: String) -> CodingKeys {
-            return CodingKeys(stringValue: key)!
+            CodingKeys(stringValue: key)!
         }
     }
 
     /// The transfer method's created time
     public var createdOn: String? {
-        return getField(TransferMethodField.createdOn.rawValue)
+        getField(TransferMethodField.createdOn.rawValue)
     }
 
     /// The transfer method holder's profile type, e.g. INDIVIDUAL or BUSINESS.
     public var profileType: String? {
-        return getField(TransferMethodField.profileType.rawValue)
+        getField(TransferMethodField.profileType.rawValue)
     }
 
     /// The transfer method's status
     public var status: String? {
-        return getField(TransferMethodField.status.rawValue)
+        getField(TransferMethodField.status.rawValue)
     }
 
     /// The transfer method's token
     public var token: String? {
-        return getField(TransferMethodField.token.rawValue)
+        getField(TransferMethodField.token.rawValue)
     }
 
     /// The transfer method's country
     public var transferMethodCountry: String? {
-        return getField(TransferMethodField.transferMethodCountry.rawValue)
+        getField(TransferMethodField.transferMethodCountry.rawValue)
     }
 
     /// The transfer method's currency
     public var transferMethodCurrency: String? {
-        return getField(TransferMethodField.transferMethodCurrency.rawValue)
+        getField(TransferMethodField.transferMethodCurrency.rawValue)
     }
 
     /// The transfer method's type
     public var type: String? {
-        return getField(TransferMethodField.type.rawValue)
+        getField(TransferMethodField.type.rawValue)
     }
 }

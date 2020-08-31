@@ -39,7 +39,7 @@ class ConfigurationTests: XCTestCase {
     }
 
     private func getConfiguration(_ expiryOn: Double) -> Configuration {
-        return Configuration(createOn: issueTime,
+        Configuration(createOn: issueTime,
                              clientToken: "client-token",
                              expiresOn: expiryOn,
                              graphQlUrl: "https://test/graphql",

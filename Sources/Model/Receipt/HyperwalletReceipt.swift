@@ -118,7 +118,7 @@ public struct HyperwalletReceipt: Decodable, Equatable {
     public let type: HyperwalletReceiptType?
 
     public static func == (lhs: HyperwalletReceipt, rhs: HyperwalletReceipt) -> Bool {
-        return lhs.journalId == rhs.journalId &&
+        lhs.journalId == rhs.journalId &&
             rhs.entry == lhs.entry &&
             rhs.type == lhs.type
     }

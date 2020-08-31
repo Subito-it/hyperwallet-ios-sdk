@@ -30,7 +30,7 @@ public final class HyperwalletPayPalAccount: HyperwalletTransferMethod {
 
     /// The email address.
     public var email: String? {
-        return getField(TransferMethodField.email.rawValue)
+        getField(TransferMethodField.email.rawValue)
     }
 
     /// A helper class to build the `HyperwalletPayPalAccount` instance.
@@ -81,7 +81,7 @@ public final class HyperwalletPayPalAccount: HyperwalletTransferMethod {
         ///
         /// - Returns: a new instance of the `HyperwalletPayPalAccount`.
         public func build() -> HyperwalletPayPalAccount {
-            return HyperwalletPayPalAccount(data: self.storage)
+            HyperwalletPayPalAccount(data: self.storage)
         }
     }
 }

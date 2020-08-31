@@ -806,8 +806,7 @@ public final class Hyperwallet: NSObject {
 
     private func transferMethodConfigurationFieldResponseHandler(_ completionHandler: @escaping (
         (TransferMethodConfigurationFieldResult?, HyperwalletErrorType?) -> Void))
-        -> (TransferMethodConfigurationField?, HyperwalletErrorType?) -> Void {
-            return { (response, error) in
+        -> (TransferMethodConfigurationField?, HyperwalletErrorType?) -> Void { { (response, error) in
                 let result = TransferMethodConfigurationFieldResult(response?.transferMethodUIConfigurations?.nodes,
                                                                     response?.countries?.nodes?.first)
                 completionHandler(result, error)
@@ -816,16 +815,14 @@ public final class Hyperwallet: NSObject {
 
     private func transferMethodConfigurationKeyResponseHandler(_ completionHandler: @escaping (
         (TransferMethodConfigurationKeyResult?, HyperwalletErrorType?) -> Void))
-        -> (TransferMethodConfigurationKey?, HyperwalletErrorType?) -> Void {
-            return { (response, error) in
+        -> (TransferMethodConfigurationKey?, HyperwalletErrorType?) -> Void { { (response, error) in
                 completionHandler(TransferMethodConfigurationKeyResult(response?.countries?.nodes), error)
             }
     }
 
     private func retrieveAuthenticationTokenResponseHandler(
         completion: @escaping (Configuration?, HyperwalletErrorType?) -> Void)
-        -> (String?, Error?) -> Void {
-        return {(authenticationToken, error) in
+        -> (String?, Error?) -> Void { {(authenticationToken, error) in
             guard error == nil else {
                 completion(nil, ErrorTypeHelper.authenticationError(
                     message: "Error occured while retrieving authentication token",

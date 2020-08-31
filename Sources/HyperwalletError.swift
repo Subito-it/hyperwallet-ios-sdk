@@ -255,7 +255,7 @@ internal struct ErrorTypeHelper {
 
     static func connectionError(message: String = "Please check network connection",
                                 for error: Error? = nil) -> HyperwalletErrorType {
-        return HyperwalletErrorType.connectionError(buildHyperwalletErrors(code: "CONNECTION_ERROR",
+        HyperwalletErrorType.connectionError(buildHyperwalletErrors(code: "CONNECTION_ERROR",
                                                                            message: message,
                                                                            error: error))
     }
