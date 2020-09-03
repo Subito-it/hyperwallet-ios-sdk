@@ -68,6 +68,7 @@ internal enum TransactionType {
             throw ErrorTypeHelper.invalidUrl()
         }
         var request = URLRequest(url: url)
+        request.addValue("it-IT", forHTTPHeaderField: "Accept-Language")
         request.addValue("Bearer " + configuration.authorization, forHTTPHeaderField: "Authorization")
         request.httpMethod = method.rawValue
         if httpBody != nil, (method == .post || method == .put) {
@@ -86,6 +87,7 @@ internal enum TransactionType {
             throw ErrorTypeHelper.invalidUrl()
         }
         var request = URLRequest(url: baseURL)
+        request.addValue("it-IT", forHTTPHeaderField: "Accept-Language")
         request.addValue("Bearer " + configuration.authorization, forHTTPHeaderField: "Authorization")
         request.httpMethod = method.rawValue
         if let httpBody = httpBody, let graphQl = httpBody as? GraphQlQuery {
